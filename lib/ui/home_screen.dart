@@ -6,6 +6,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
+          //! APP BAR
           SliverAppBar(
             expandedHeight: 100,
             floating: true,
@@ -23,16 +24,21 @@ class HomeScreen extends StatelessWidget {
               IconButton(onPressed: () {}, icon: Icon(Icons.add), iconSize: 30)
             ],
           ),
+           //! APP BAR
+
+          //!LIST
           SliverList(
             delegate:
                 SliverChildBuilderDelegate((BuildContext context, int index) {
               return Container(
                 margin: EdgeInsets.all(10),
                 height: 100,
-                color:Colors.red
+                color:Colors.white
               );
             }),
-          )
+          ),
+        //!LIST
+        
         ],
       ),
     );
