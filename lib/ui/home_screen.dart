@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:teman_finansial_app/data/data.dart';
+import 'package:teman_finansial_app/ui/widgets/barchart.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -35,9 +37,23 @@ class HomeScreen extends StatelessWidget {
                   SliverChildBuilderDelegate((BuildContext context, int index) {
                 return Container(
                     margin: EdgeInsets.all(10),
-                    height: 100,
-                    color: Colors.white);
-              }),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(0,2),
+                          blurRadius: 6,
+                        )  
+                      ],
+                      borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: BarChart(expenses:weeklySpending),
+                    );
+              },
+              childCount: 1,
+              ),
+              
             ),
             //!LIST
           ],
