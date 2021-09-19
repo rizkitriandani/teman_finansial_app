@@ -15,7 +15,7 @@ class BarChart extends StatelessWidget {
     });
 
     return Padding(
-      padding: EdgeInsets.all(15.0),
+      padding: EdgeInsets.all(12.0),
       child: Column(
         children: [
           Text(
@@ -31,18 +31,17 @@ class BarChart extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
+           
             children: [
-              Expanded(
-                child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.arrow_back),
-                  iconSize: 30,
-                ),
+              IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.arrow_back),
+                iconSize: 28,
               ),
               Text(
                 'Sep 12, 2021 - Sep 18, 2021',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 1.2,
                 ),
@@ -51,7 +50,7 @@ class BarChart extends StatelessWidget {
                 child: IconButton(
                   onPressed: () {},
                   icon: Icon(Icons.arrow_forward),
-                  iconSize: 30,
+                  iconSize: 28,
                 ),
               )
             ],

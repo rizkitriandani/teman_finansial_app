@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
               delegate:
                   SliverChildBuilderDelegate((BuildContext context, int index) {
                 return Container(
-                    margin: EdgeInsets.all(10),
+                    margin: EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       boxShadow: [
