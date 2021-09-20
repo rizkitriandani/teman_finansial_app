@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:teman_finansial_app/helpers/color_helper.dart';
 import 'package:teman_finansial_app/models/category_model.dart';
 import 'package:get/get.dart';
+import 'package:teman_finansial_app/models/expense_model.dart';
+import 'package:teman_finansial_app/ui/widgets/radial_painter.dart';
 
 class CategoryScreen extends StatelessWidget {
   final Category category;
@@ -9,6 +12,14 @@ class CategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double totalAmountSpent = 0;
+    category.expenses.forEach((Expense expense) {
+      totalAmountSpent += expense.cost;
+    });
+
+    final double amountLeft = category.maxAmount - totalAmountSpent;
+    final double percent = amountLeft / category.maxAmount;
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -39,6 +50,22 @@ class CategoryScreen extends StatelessWidget {
                     )
                   ],
                   borderRadius: BorderRadius.circular(10)),
+              child: CustomPaint(
+                foregroundPainter: RadialPainter(
+                  bgColor: Colors.grey,
+                  lineColor: getColor(context,percent),
+                  percent: percent,
+                  width: 15,
+                ),
+                child: Center(
+                  child: Text(
+                    amountLeft.toStringAsFixed(2) +
+                        "/" +
+                        category.maxAmount.toStringAsFixed(2),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
             ),
           ],
         ),

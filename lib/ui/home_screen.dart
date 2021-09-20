@@ -16,7 +16,11 @@ class HomeScreen extends StatelessWidget {
       //     context,
       //     MaterialPageRoute(
       //         builder: (_) => CategoryScreen(category: category))),
-      onTap: () => Get.to(CategoryScreen(category: category,),),
+      onTap: () => Get.to(
+        CategoryScreen(
+          category: category,
+        ),
+      ),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         padding: EdgeInsets.all(20),
@@ -99,7 +103,9 @@ class HomeScreen extends StatelessWidget {
               floating: true,
               forceElevated: true,
               leading: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.snackbar("Setting", "Coming Soon");
+                },
                 icon: Icon(Icons.settings),
                 iconSize: 7.w,
               ),
@@ -109,7 +115,11 @@ class HomeScreen extends StatelessWidget {
               ),
               actions: [
                 IconButton(
-                    onPressed: () {}, icon: Icon(Icons.add), iconSize: 7.w)
+                    onPressed: () {
+                      Get.snackbar("Add Spending", "Coming Soon");
+                    },
+                    icon: Icon(Icons.add),
+                    iconSize: 7.w)
               ],
             ),
             //! APP BAR
