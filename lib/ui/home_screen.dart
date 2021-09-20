@@ -4,73 +4,85 @@ import 'package:teman_finansial_app/data/data.dart';
 import 'package:teman_finansial_app/helpers/color_helper.dart';
 import 'package:teman_finansial_app/models/category_model.dart';
 import 'package:teman_finansial_app/models/expense_model.dart';
+import 'package:teman_finansial_app/ui/category_screen.dart';
 import 'package:teman_finansial_app/ui/widgets/barchart.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {
-  _buildCategory(Category category, double totalAmountSpent) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      padding: EdgeInsets.all(20),
-      height: 100,
-      width: double.infinity,
-      decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              offset: Offset(0, 2),
-              blurRadius: 6,
-            )
-          ],
-          borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(category.name,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-              Text(
-                  (category.maxAmount - totalAmountSpent).toStringAsFixed(2) +
-                      "/" +
-                      (category.maxAmount).toStringAsFixed(2),
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+  _buildCategory(
+      Category category, double totalAmountSpent, BuildContext context) {
+    return GestureDetector(
+      // onTap: () => Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (_) => CategoryScreen(category: category))),
+      onTap: () => Get.to(CategoryScreen(category: category,),),
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: EdgeInsets.all(20),
+        height: 100,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black12,
+                offset: Offset(0, 2),
+                blurRadius: 6,
+              )
             ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-            final double maxBarWidth = constraints.maxWidth;
-            final double percent =
-                (category.maxAmount - totalAmountSpent) / category.maxAmount;
-            double barWidth = percent * maxBarWidth;
-
-            if(barWidth < 0){
-              barWidth = 0;
-            }
-
-            return Stack(
+            borderRadius: BorderRadius.circular(10)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                    height: 20,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(15),
-                    )),
-                Container(
-                    height: 20,
-                    width: barWidth,
-                    decoration: BoxDecoration(
-                      color: getColor(context,percent),
-                      borderRadius: BorderRadius.circular(15),
-                    )),
+                Text(category.name,
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                Text(
+                    (category.maxAmount - totalAmountSpent).toStringAsFixed(2) +
+                        "/" +
+                        (category.maxAmount).toStringAsFixed(2),
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
               ],
-            );
-          })
-        ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+              final double maxBarWidth = constraints.maxWidth;
+              final double percent =
+                  (category.maxAmount - totalAmountSpent) / category.maxAmount;
+              double barWidth = percent * maxBarWidth;
+
+              if (barWidth < 0) {
+                barWidth = 0;
+              }
+
+              return Stack(
+                children: [
+                  Container(
+                      height: 20,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(15),
+                      )),
+                  Container(
+                      height: 20,
+                      width: barWidth,
+                      decoration: BoxDecoration(
+                        color: getColor(context, percent),
+                        borderRadius: BorderRadius.circular(15),
+                      )),
+                ],
+              );
+            })
+          ],
+        ),
       ),
     );
   }
@@ -127,7 +139,7 @@ class HomeScreen extends StatelessWidget {
                     category.expenses.forEach((Expense expense) {
                       totalAmountSpent += expense.cost;
                     });
-                    return _buildCategory(category, totalAmountSpent);
+                    return _buildCategory(category, totalAmountSpent, context);
                   }
                 },
                 childCount: 1 + categories.length,
